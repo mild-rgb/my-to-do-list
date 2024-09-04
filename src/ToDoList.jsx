@@ -94,6 +94,45 @@ function ToDoList()
  //       console.log(data)
     }
 
+    function moveTaskUp(index){
+
+
+
+        if(index > 0){
+
+            const updatedTasks = [...tasks];
+
+            [updatedTasks[index], updatedTasks[index - 1]] = 
+
+            [updatedTasks[index - 1], updatedTasks[index]];
+
+            setTasks(updatedTasks);
+
+        }
+
+    }
+
+
+
+    function moveTaskDown(index){
+
+
+
+        if(index < tasks.length - 1){
+
+            const updatedTasks = [...tasks];
+
+            [updatedTasks[index], updatedTasks[index + 1]] = 
+
+            [updatedTasks[index + 1], updatedTasks[index]];
+
+            setTasks(updatedTasks);
+
+        }
+
+    }
+
+
 
     //get data from computer 
     useEffect(() => {
@@ -113,11 +152,6 @@ function ToDoList()
                 onChange={handleTaskChange}
                 />
                 <br/>
-                <input
-                placeholder="enter a header..."
-                value = {newHeader}
-                onChange={handleHeaderChange}
-                />
                 <button
                 className="add-button"
                 onClick={addTaskHeader}
@@ -143,6 +177,17 @@ function ToDoList()
                     onClick = {() => removeTask(index)}
                     >
                     delete task
+                    </button>
+                    <button
+                    className="move-button"
+                    onClick={() => moveTaskUp(index)}>
+
+                    </button>
+
+                    <button
+                    className="move-button"
+                    onClick={() => moveTaskDown(index)}>
+                    
                     </button>
                 </li>
                 )}
