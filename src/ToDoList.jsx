@@ -86,7 +86,7 @@ function ToDoList()
         };
 
 
-        fetch('https://my-to-do-list.onrender.com/upload', options);
+        fetch('https://to-do-backend-ssey.onrender.com/upload', options);
 
 //fetch("http://localhost:3000/api")
  //           .then((res) => res.json())
@@ -136,7 +136,7 @@ function ToDoList()
 
     //get data from computer 
     useEffect(() => {
-        fetch("https://my-to-do-list.onrender.com/api")
+        fetch("https://to-do-backend-ssey.onrender.com/api")
           .then((res) => res.json())
           .then((data) => setTasks(data.message));
     }, []);
