@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from "react";
-
+import { disableReactDevTools } from "@fvilers/disable-react-devtools";
+if (process.env.NODE_EVN === 'production') disableReactDevTools()
 //according to this https://muffinman.io/uploading-files-using-fetch-multipart-form-data it works in different way, at least for me it works as well.
 
 //const fileInput = document.querySelector('#your-file-input') ;
@@ -36,11 +37,17 @@ function ToDoList()
         setNewHeader(event.target.value)
     }
 
-    function addTask()
+    function addTaskHeader()
     {
         if(newTask.trim() !== ""){
         setTasks(t => [...t, newTask])
         setNewTask("")
+        }
+
+        if(newHeader.trim() !== "")
+        {
+            setHeaders(h => [...h, newHeader])
+            setNewHeader("")
         }
     }
     function removeTask(index)
@@ -79,7 +86,7 @@ function ToDoList()
         };
 
 
-        fetch('http://localhost:3000/upload', options);
+        fetch('https://my-to-do-list.onrender.com/upload', options);
 
 //fetch("http://localhost:3000/api")
  //           .then((res) => res.json())
@@ -90,7 +97,7 @@ function ToDoList()
 
     //get data from computer 
     useEffect(() => {
-        fetch("http://localhost:3000/api")
+        fetch("https://my-to-do-list.onrender.com/api")
           .then((res) => res.json())
           .then((data) => setTasks(data.message));
     }, []);
@@ -113,7 +120,7 @@ function ToDoList()
                 />
                 <button
                 className="add-button"
-                onClick={addTask}
+                onClick={addTaskHeader}
                 >
                     make task
                 </button>
