@@ -181,13 +181,13 @@ function ToDoList()
                     <button
                     className="move-button"
                     onClick={() => moveTaskUp(index)}>
-
+                    move task priority up
                     </button>
 
                     <button
                     className="move-button"
                     onClick={() => moveTaskDown(index)}>
-                    
+                    move task priority down
                     </button>
                 </li>
                 )}
