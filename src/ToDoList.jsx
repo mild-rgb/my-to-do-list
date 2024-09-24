@@ -98,7 +98,7 @@ function ToDoList() {
                 <br />
                 <button
                     className="add-button"
-                    onClick={addTasks}
+                    onClick={addTask}
                 >
                     Add Task
                 </button>
