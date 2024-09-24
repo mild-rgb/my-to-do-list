@@ -50,7 +50,7 @@ function ToDoList() {
                 body: JSON.stringify(tasks),
             };
 
-            const response = await fetch('http://localhost:3000/upload', options);
+            const response = await fetch('https://to-do-backend-ssey.onrender.com/upload', options);
             if (!response.ok) {
                 throw new Error('Failed to save tasks');
             }
@@ -70,7 +70,7 @@ function ToDoList() {
     useEffect(() => {
         async function fetchTasks() {
             try {
-                const response = await fetch("http://localhost:3000/download");
+                const response = await fetch("https://to-do-backend-ssey.onrender.com/download");
                 if (!response.ok) {
                     throw new Error('Failed to fetch tasks');
                 }
