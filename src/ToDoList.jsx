@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { TailSpin } from "react-loader-spinner";
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]); // just an array of strings
     const [newTask, setNewTask] = useState("");
+    const [loading, setLoading] = useState(true)
 
     function handleTaskChange(event) {
         setNewTask(event.target.value);
@@ -60,27 +62,27 @@ function ToDoList() {
         }
     }
 
-    function AddAndSaveTask()
-    {
-        addTask()
-        saveList()
+    async function fetchTasks() {
+        try {   
+            console.log(loading)         
+            const response = await fetch("https://to-do-backend-ssey.onrender.com/download");
+            if (!response.ok) {
+                throw new Error('Failed to fetch tasks');
+            }
+            const data = await response.json();
+            setTasks(data.message || []); // Ensure tasks is an array
+            console.log("Fetched tasks:", data.message);
+        } catch (error) {
+            console.error("Error fetching tasks:", error);
+        }
+        finally
+        {
+            setLoading(false)
+        }
     }
 
     // get data from backend on reload  
     useEffect(() => {
-        async function fetchTasks() {
-            try {
-                const response = await fetch("https://to-do-backend-ssey.onrender.com/download");
-                if (!response.ok) {
-                    throw new Error('Failed to fetch tasks');
-                }
-                const data = await response.json();
-                setTasks(data.message || []); // Ensure tasks is an array
-                console.log("Fetched tasks:", data.message);
-            } catch (error) {
-                console.error("Error fetching tasks:", error);
-            }
-        }
         fetchTasks();
     }, []);
 
@@ -90,7 +92,7 @@ function ToDoList() {
             <div>
                 <textarea
                     id="newTask"
-                    placeholder='Enter a task...'
+                    placeholder='enter a task...'
                     value={newTask}
                     onChange={handleTaskChange}
                     rows="1"
@@ -100,17 +102,23 @@ function ToDoList() {
                     className="add-button"
                     onClick={addTask}
                 >
-                    Add Task
+                    add task
                 </button>
                 <button
                     className="add-button"
                     onClick={saveList}
                 >
-                    Save List
+                    save tasks
                 </button>
                 <br />
             </div>
 
+            {loading ? (
+                <div className="spinner-container">
+                <TailSpin className="spinner" color = "black"></TailSpin>
+                </div>
+            ) : 
+            (
             <ol>
                 {tasks.map((task, index) => (
                     <li key={index}>
@@ -119,23 +127,24 @@ function ToDoList() {
                             className="delete-button"
                             onClick={() => removeTask(index)}
                         >
-                            Delete Task
+                            delete task
                         </button>
                         <button
                             className="move-button"
                             onClick={() => moveTaskUp(index)}
                         >
-                            Move Up
+                            move up
                         </button>
                         <button
                             className="move-button"
                             onClick={() => moveTaskDown(index)}
                         >
-                            Move Down
+                            move down
                         </button>
                     </li>
                 ))}
             </ol>
+            )}
         </div>
     );
 }

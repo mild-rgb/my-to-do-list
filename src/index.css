@@ -102,11 +102,21 @@ li {
   background-color: #666;
 }
 
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 110px; /* Adjust the height as needed */
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .ToDoList {
       width: 90%;
   }
 }
+
+
 
 
