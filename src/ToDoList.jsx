@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { TailSpin } from "react-loader-spinner";
+//import { TailSpin } from "react-loader-spinner";
+import { TypeAnimation } from 'react-type-animation';
 
 function ToDoList() {
+    console.log("this is a test to see if updating")
     const [tasks, setTasks] = useState([]); // just an array of strings
     const [newTask, setNewTask] = useState("");
     const [loading, setLoading] = useState(true)
@@ -114,9 +116,22 @@ function ToDoList() {
             </div>
 
             {loading ? (
-                <div className="spinner-container">
-                <TailSpin className="spinner" color = "black"></TailSpin>
-                </div>
+                <TypeAnimation
+                sequence={[
+                  // Same substring at the start will only be typed once, initially
+                  'tasks',
+                  1500,
+                  'tasks are',
+                  1500,
+                  'tasks are loading',
+                  1500,
+                  '',
+                  1500,
+                ]}
+                speed={70}
+                style={{ fontSize: '2em' }}
+                repeat={Infinity}
+              />
             ) : 
             (
             <ol>
